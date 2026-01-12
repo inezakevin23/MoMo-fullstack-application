@@ -15,6 +15,7 @@ The system parses, cleans, categorizes, and stores transaction data in a relatio
 ## project Architecture
 Architecture diagram illustrating data flow from XML input to database and dashboard:
 **Architecture Diagram Link:**
+https://miro.com/app/board/uXjVGRm7DUU=/?passwordless_invite
 
 ## Scrum Board
 We use an Agile Scrum board to manage tasks and collaboration.
