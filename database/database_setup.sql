@@ -51,3 +51,28 @@ CREATE TABLE System_logs (
     Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (Transaction_id) REFERENCES Transactions(Transaction_id)
 );
+
+INSERT INTO roles (roles_id, role_name, description) VALUES
+(01, 'reciever', 'users who receive money'),
+(02, 'sender', 'users who send money'),
+(03, 'bank', 'bank deposits money to users account'),
+(04, 'momo_service', 'automated service generating transactions notifications');
+
+INSERT INTO users (users_id, full_name, phone_number) VALUES
+(001, 'Linda Green', '*********704'),
+(002, 'Robert Brown', '250791666666'),
+(003, 'Jane Smith', '250788999999'),
+(004, 'Samuel Carter', '250791666668'),
+(005, 'bank of kigali', '250795963036');
+
+INSERT INTO User_roles (User_roles_id, Roles_id, users_id) VALUES
+(0001, 02, 001),
+(0002, 01, 002),
+(0003, 01, 003),
+(0004, 01, 004),
+(0005, 03, 005);
+
+
+
+
+
