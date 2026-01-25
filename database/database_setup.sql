@@ -42,6 +42,7 @@ CREATE TABLE transactions (
     FOREIGN KEY (transaction_category_id) REFERENCES transaction_category(transaction_category_id) COMMENT 'Foreign key reference to transaction category'
 );
 
+<<<<<<< HEAD
 CREATE TABLE system_logs (
     system_logs_id INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for each log entry',
     log_level ENUM('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL') NOT NULL COMMENT 'Severity level of the log entry',
@@ -59,3 +60,39 @@ CREATE INDEX idx_transactions_date ON transactions(transaction_date) COMMENT 'In
 CREATE INDEX idx_transactions_status ON transactions(transaction_status) COMMENT 'Index for filtering transactions by status';
 CREATE INDEX idx_system_logs_created ON system_logs(created_at) COMMENT 'Index for filtering logs by creation date';
 CREATE INDEX idx_user_roles_user ON user_roles(users_id) COMMENT 'Index for finding roles by user';
+=======
+CREATE TABLE System_logs (
+    Log_id INT PRIMARY KEY,
+    Transaction_id INT,
+    Log_level VARCHAR(50),
+    message TEXT,
+    Source VARCHAR(100),
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (Transaction_id) REFERENCES Transactions(Transaction_id)
+);
+
+INSERT INTO roles (roles_id, role_name, description) VALUES
+(01, 'reciever', 'users who receive money'),
+(02, 'sender', 'users who send money'),
+(03, 'bank', 'bank deposits money to users account'),
+(04, 'momo_service', 'automated service generating transactions notifications');
+
+INSERT INTO users (users_id, full_name, phone_number) VALUES
+(001, 'Linda Green', '*********704'),
+(002, 'Robert Brown', '250791666666'),
+(003, 'Jane Smith', '250788999999'),
+(004, 'Samuel Carter', '250791666668'),
+(005, 'bank of kigali', '250795963036');
+
+INSERT INTO User_roles (User_roles_id, Roles_id, users_id) VALUES
+(0001, 02, 001),
+(0002, 01, 002),
+(0003, 01, 003),
+(0004, 01, 004),
+(0005, 03, 005);
+
+
+
+
+
+>>>>>>> 5b0e0840df930a900f738530c21f368b4af04977
