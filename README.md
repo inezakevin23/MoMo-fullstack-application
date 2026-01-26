@@ -4,7 +4,7 @@
 code bros
 
 ## Team Members
-- Ineza kevin
+- Ineza Kevin
 - Ishami Irené
 - Lincoln Keza Batsinduka
 
@@ -21,3 +21,26 @@ https://miro.com/app/board/uXjVGRm7DUU=/?passwordless_invite
 We use an Agile Scrum board to manage tasks and collaboration.
 **Scrum Board Link:**
 https://github.com/users/inezakevin23/projects/1
+
+## Entity-Relationship Diagram (ERD) design rationale
+We have created five entities, which are: 
+1. transaction entity
+2. transaction category entity
+3. users entity
+4. roles entity
+5. system logs entity
+
+## CRUD operations
+
+We created the database while using basic CRUD operations to maintain correctness and integrity. which were:
+- CREATE
+- READ
+- UPDATE
+- DELETE
+
+We added CHECK (transaction_fee >= 0), CHECK (transferred_amount > 0), CHECK (sender_id != receiver_id), to enhance accuracy by preventing invalid transaction values, and also preventing the user from being both sender and receiver in one transaction.
+
+## JSON represntations
+
+We not only create relational databases, but we also create the JSON presentation. To maintain integrity and correctness, we base our approach on the entity we have seen above. To not confuse the view, we have uploaded the documentation, which has Mapping between SQL and JSON representation to maintain clarity between bthe SQLdatabase to JSON presentation.
+
