@@ -57,3 +57,54 @@ CREATE INDEX idx_transactions_receiver ON transactions(receiver_id) COMMENT 'Ind
 CREATE INDEX idx_transactions_date ON transactions(transaction_date) COMMENT 'Index for filtering transactions by date range';
 CREATE INDEX idx_system_logs_created ON system_logs(created_at) COMMENT 'Index for filtering logs by creation date';
 CREATE INDEX idx_user_roles_role ON user_roles(roles_id) COMMENT 'Index for finding users by role';
+
+INSERT INTO roles (role_name, description) VALUES
+('sender', 'User who initiates a transaction or sends money'),
+('receiver', 'User who receives money in a transaction');
+
+INSERT INTO users (full_name, phone_number) VALUES
+('Keza Irene', '250788999990'),
+('Kabera Dorcas', '250791666666'),
+('Mwiza Zawadi', '250791666662'),
+('Mugisha Fabrice', '250788999997'),
+('MTN Agent', NULL),
+('Bank system', NULL);
+
+INSERT INTO user_roles (users_id, roles_id) VALUES
+(1, 1), -- Keza Irene sent money to kabera Dorcas
+(2, 2), -- Kabera Dorcas received money from Keza Irene
+(1, 1), -- Keza Irene has paid money to Mugisha Fabrice
+(4, 2), -- Mugisha Fabrice has recived payment from Keza Irene
+(1, 2), -- Keza Irene received money from Mwiza Zawadi
+(3, 3), -- Mwiza Zawadi sent money to Keza Irene
+(6, 1), -- Bank deposits money to mobile money of Keza Irene
+(1, 2), -- Keza Irene received money from bank deposit
+(5, 2), -- Keza Irene bought MTN airtime  (that means MTN Agent received money for airtime, they are receiver)
+(1, 1), -- Keza Irene bought MTN airtime (that means she sent money for airtime, she is sender)
+
+INSERT INTO transaction_category (category_name) VALUES
+('transfer'),
+('payment'),
+('deposit'),
+('withdrawal'),
+('airtime');
+
+INSERT INTO transactions (transferred_amount, reference_code, currency, transaction_fee, transaction_date, new_balance, sender_id, receiver_id, transaction_category_id) VALUES
+-- Transaction 1: Keza Irene sent money to kabera Dorcas
+(2000, '76662021700', 'RWF', 100, '2024-05-10 16:30:51', 2000, 1, 2, 1),
+-- Transaction 2: Keza Irene has paid money to Mugisha Fabrice
+(1000, '73214484437', 'RWF', 100, '2024-05-10 18:31:39', 900, 4, 1, 2),
+-- Transaction 3: Keza Irene received money from Mwiza Zawadi
+(6000, '51732411227', 'RWF', 0, '2024-05-11 21:32:32', 6900, 3, 1, 1),
+-- Transaction 4:  Bank deposits money to mobile money of Keza Irene
+(40000, '40000_bank_deposit_05_11', 'RWF', 0, '2024-05-12 18:43:49', 46900, 6, 1, 3),
+-- Transaction 5: Keza Irene bought MTN airtime (airtime payment)
+(3000, '17818959211', 'RWF', 0, '2024-05-11 18:48:42', 43900, 1, 5, 5);
+
+INSERT INTO system_logs (log_level, message, transactions_id) VALUES
+('INFO', 'Transaction sms processed successfully', 1),
+('INFO', 'payment sms processed successfully', 2),
+('INFO', 'Transaction processed successfully', 3),
+('INFO', 'Bank deposit sms processed successfully', 4),
+('INFO', 'Airtime purchase sms processed successfully', 5),
+('ERROR', 'system rejected transaction because no amount found', NULL);
