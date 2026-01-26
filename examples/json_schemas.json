@@ -1,4 +1,3 @@
-// users entity
 {
     "users": [
         {
@@ -14,8 +13,6 @@
     ]
 }
 
-// transaction entity
-
 {
     "transactions": {
         "transactions_id": "1",
@@ -26,31 +23,25 @@
         "transaction_date": "2024-05-10 16:30:51",
         "New_balance": "2000",
         "sender_id": "1",
-        "reciever_id":"2",
+        "receiver_id": "2",
         "transaction_category_id": "1"
     }
 }
 
 
-
-// user_roles entity
-
 {
     "users_role": [
-        {
-        "user_roles_id": "1",
-        "roles_id": "1",
-        "users_id": "1"
+      { 
+        "user_roles_id": "1", 
+        "roles_id": "1", 
+        "users_id": "1" 
     },
-    {
-      "user_roles_id": "1",
-        "roles_id": "2",
-        "users_id": "2"  
+      { "user_roles_id": "2", 
+      "roles_id": "2", 
+      "users_id": "2" 
     }
     ]
-}
-
-// roles
+  }
 
 {
     "roles": [
@@ -67,10 +58,9 @@
     ]
 }
 
-// system_logs
 {
     "system_logs": {
-        "sytem_logs_id": "1",
+        "system_logs_id": "1",
         "log_level": "INFO",
         "message": "Transaction sms processed successfully",
         "created_at": "",
@@ -78,15 +68,14 @@
     }
 }
 
-// transaction_category
+
 {
     "transaction_category": {
         "transaction_category_id": "1",
         "category_name": "transfer"
     }
 }
-
-// one complex json object 
+ 
 {
     "transactions": {
         "transactions_id": "1",
@@ -106,7 +95,7 @@
                 "description": "User who initiates a transaction or sends money"
             }
         },
-        "reciever":{
+        "receiver":{
             "users_id": "2",
             "full_name": "Kabera Dorcas",
             "phone_number": "250791666666",
@@ -115,18 +104,17 @@
                 "role_name": "receiver",
                 "description": "User who receives money from sender"
             }
-        }
-            
         },
+
         "transaction_category": {
             "transaction_category_id": "1",
             "category_name": "transfer"
         },
         "system_logs": {
-            "sytem_logs_id": "1",
+            "system_logs_id": "1",
             "log_level": "INFO",
             "message": "Transaction sms processed successfully",
-            "created_at": "2024-05-10 18:30:51",
+            "created_at": "2024-05-10 18:30:51"
         }
 
     }
