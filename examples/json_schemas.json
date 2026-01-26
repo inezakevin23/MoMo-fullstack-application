@@ -1,0 +1,133 @@
+// users entity
+{
+    "users": [
+        {
+        "users_id": "1",
+        "full_name": "Keza Irene",
+        "phone_number": "250788999990"
+    },
+    {
+        "users_id": "2",
+        "full_name": "Kabera Dorcas",
+        "phone_number": "250791666666"
+    }
+    ]
+}
+
+// transaction entity
+
+{
+    "transactions": {
+        "transactions_id": "1",
+        "transferred_amount": "2000",
+        "reference_code": "76662021700",
+        "currency": "RWF",
+        "transaction_fee": "100",
+        "transaction_date": "2024-05-10 16:30:51",
+        "New_balance": "2000",
+        "sender_id": "1",
+        "reciever_id":"2",
+        "transaction_category_id": "1"
+    }
+}
+
+
+
+// user_roles entity
+
+{
+    "users_role": [
+        {
+        "user_roles_id": "1",
+        "roles_id": "1",
+        "users_id": "1"
+    },
+    {
+      "user_roles_id": "1",
+        "roles_id": "2",
+        "users_id": "2"  
+    }
+    ]
+}
+
+// roles
+
+{
+    "roles": [
+        {
+        "roles_id": "1",
+        "role_name": "sender",
+        "description": "User who initiates a transaction or sends money"
+    },
+    {
+        "roles_id": "2",
+        "role_name": "receiver",
+        "description": "User who receives money from sender"
+    }
+    ]
+}
+
+// system_logs
+{
+    "system_logs": {
+        "sytem_logs_id": "1",
+        "log_level": "INFO",
+        "message": "Transaction sms processed successfully",
+        "created_at": "",
+        "transaction_id": "1"
+    }
+}
+
+// transaction_category
+{
+    "transaction_category": {
+        "transaction_category_id": "1",
+        "category_name": "transfer"
+    }
+}
+
+// one complex json object 
+{
+    "transactions": {
+        "transactions_id": "1",
+        "transferred_amount": "2000",
+        "reference_code": "76662021700",
+        "currency": "RWF",
+        "transaction_fee": "100",
+        "transaction_date": "2024-05-10 16:30:51",
+        "New_balance": "2000",
+        "sender": {
+            "users_id": "1",
+            "full_name": "Keza Irene",
+            "phone_number": "250788999990",
+            "roles": {
+                "roles_id": "1",
+                "role_name": "sender",
+                "description": "User who initiates a transaction or sends money"
+            }
+        },
+        "reciever":{
+            "users_id": "2",
+            "full_name": "Kabera Dorcas",
+            "phone_number": "250791666666",
+            "roles": {
+                "roles_id": "2",
+                "role_name": "receiver",
+                "description": "User who receives money from sender"
+            }
+        }
+            
+        },
+        "transaction_category": {
+            "transaction_category_id": "1",
+            "category_name": "transfer"
+        },
+        "system_logs": {
+            "sytem_logs_id": "1",
+            "log_level": "INFO",
+            "message": "Transaction sms processed successfully",
+            "created_at": "2024-05-10 18:30:51",
+        }
+
+    }
+}
