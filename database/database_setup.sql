@@ -14,8 +14,8 @@ CREATE TABLE user_roles (
     user_roles_id INT PRIMARY KEY AUTO_INCREMENT COMMENT 'Unique identifier for the user-role mapping',
     roles_id INT NOT NULL COMMENT 'Reference to the role',
     users_id INT NOT NULL COMMENT 'Reference to the user',
-    FOREIGN KEY (roles_id) REFERENCES roles(roles_id) COMMENT 'Foreign key reference to roles table',
-    FOREIGN KEY (users_id) REFERENCES users(users_id) COMMENT 'Foreign key reference to users table',
+    FOREIGN KEY (roles_id) REFERENCES roles(roles_id),
+    FOREIGN KEY (users_id) REFERENCES users(users_id),
     UNIQUE KEY unique_user_role (users_id, roles_id) COMMENT 'Ensure each user has only one instance of each role'
 );
 
@@ -29,17 +29,18 @@ CREATE TABLE transactions (
     transferred_amount DECIMAL(15, 2) NOT NULL COMMENT 'Amount transferred in the transaction',
     reference_code VARCHAR(100) NOT NULL UNIQUE COMMENT 'Unique reference code for transaction tracking',
     currency VARCHAR(3) NOT NULL COMMENT 'currency that is used in transaction',
-    transaction_fee DECIMAL(10, 2) DEFAULT 0 CHECK (transaction_fee >= 0) COMMENT 'Transaction fee charged (must not be negative)',
+    transaction_fee DECIMAL(10, 2) DEFAULT 0 COMMENT 'Transaction fee charged (must not be negative)',
     transaction_date DATETIME NOT NULL COMMENT 'Date and time when the transaction occurred',
     new_balance DECIMAL(15, 2) COMMENT 'New balance of end user after transaction',
     sender_id INT NOT NULL COMMENT 'Reference to the user sending money',
     receiver_id INT NOT NULL COMMENT 'Reference to the user receiving money',
     transaction_category_id INT NOT NULL COMMENT 'Reference to the transaction category',
-    CHECK (transferred_amount > 0) COMMENT 'Ensure transferred amount is positive',
-    CHECK (sender_id != receiver_id) COMMENT 'Ensure sender and receiver are different users',
-    FOREIGN KEY (sender_id) REFERENCES users(users_id) COMMENT 'Foreign key reference to sender user',
-    FOREIGN KEY (receiver_id) REFERENCES users(users_id) COMMENT 'Foreign key reference to receiver user',
-    FOREIGN KEY (transaction_category_id) REFERENCES transaction_category(transaction_category_id) COMMENT 'Foreign key reference to transaction category'
+    CHECK (transaction_fee >= 0),
+    CHECK (transferred_amount > 0),
+    CHECK (sender_id != receiver_id),
+    FOREIGN KEY (sender_id) REFERENCES users(users_id),
+    FOREIGN KEY (receiver_id) REFERENCES users(users_id),
+    FOREIGN KEY (transaction_category_id) REFERENCES transaction_category(transaction_category_id)
 );
 
 CREATE TABLE system_logs (
@@ -48,7 +49,7 @@ CREATE TABLE system_logs (
     message VARCHAR(1000) NOT NULL COMMENT 'Log message describing the event',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP COMMENT 'Timestamp when the log was created',
     transactions_id INT COMMENT 'Optional reference to related transaction',
-    FOREIGN KEY (transactions_id) REFERENCES transactions(transactions_id) COMMENT 'Foreign key reference to transaction (can be NULL)'
+    FOREIGN KEY (transactions_id) REFERENCES transactions(transactions_id)
 );
 
 CREATE INDEX idx_users_phone ON users(phone_number) COMMENT 'Index for fast phone number lookups';
@@ -71,16 +72,13 @@ INSERT INTO users (full_name, phone_number) VALUES
 ('Bank system', NULL);
 
 INSERT INTO user_roles (users_id, roles_id) VALUES
-(1, 1), -- Keza Irene sent money to kabera Dorcas
-(2, 2), -- Kabera Dorcas received money from Keza Irene
-(1, 1), -- Keza Irene has paid money to Mugisha Fabrice
-(4, 2), -- Mugisha Fabrice has recived payment from Keza Irene
-(1, 2), -- Keza Irene received money from Mwiza Zawadi
-(3, 3), -- Mwiza Zawadi sent money to Keza Irene
-(6, 1), -- Bank deposits money to mobile money of Keza Irene
-(1, 2), -- Keza Irene received money from bank deposit
-(5, 2), -- Keza Irene bought MTN airtime  (that means MTN Agent received money for airtime, they are receiver)
-(1, 1), -- Keza Irene bought MTN airtime (that means she sent money for airtime, she is sender)
+(1, 1), -- Keza Irene is a sender (Keza Irene sent money to kabera Dorcas)
+(2, 2), -- Kabera Dorcas is a receiver (Kabera Dorcas received money from Keza Irene)
+(4, 2), -- Mugisha Fabrice is a receiver (Mugisha Fabrice has received payment from Keza Irene)
+(1, 2), -- Keza Irene is also a receiver (Keza Irene received money from Mwiza Zawadi)
+(3, 1), -- Mwiza Zawadi is a sender (Mwiza Zawadi sent money to Keza Irene)
+(5, 2), -- MTN Agent is a receiver (Keza Irene bought MTN airtime)
+(6, 1); -- Bank system is a sender (Bank deposits money to mobile money of Keza Irene)
 
 INSERT INTO transaction_category (category_name) VALUES
 ('transfer'),
