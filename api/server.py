@@ -1,14 +1,19 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import base64
-from dsa.xml_parser import parse_sms_xml
+import sys
+import os
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-transactions = parse_sms_xml("modified_sms_v2.xml")
+from dsa.xml_parsing_script import parse_sms_xml
+
+xml_file = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "dsa", "modified_sms_v2.xml")
+transactions = parse_sms_xml(xml_file)
 transaction_dict = {}
 for t in transactions:
     key = t["id"]
     value = t
-transaction_dict[key]=value
+transaction_dict[key]= value
 
 USERNAME = "MoMo-user"
 PASSWORD = "password321"
@@ -96,6 +101,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         else:
             self.send_response(404)
             self.end_headers()
+            
 if __name__ == "__main__":
     server = HTTPServer(("localhost", 8000), RequestHandler)
     print("Server running on port 8000")
