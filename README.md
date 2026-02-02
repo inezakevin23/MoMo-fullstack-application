@@ -40,7 +40,28 @@ We created the database while using basic CRUD operations to maintain correctnes
 
 We added CHECK (transaction_fee >= 0), CHECK (transferred_amount > 0), CHECK (sender_id != receiver_id), to enhance accuracy by preventing invalid transaction values, and also preventing the user from being both sender and receiver in one transaction.
 
-## JSON represntations
+## JSON representations
 
 We not only create relational databases, but we also create the JSON presentation. To maintain integrity and correctness, we base our approach on the entity we have seen above. To not confuse the view, we have uploaded the documentation, which has Mapping between SQL and JSON representation to maintain clarity between bthe SQLdatabase to JSON presentation.
+## API 
 
+### Data parsing
+
+This is the way of transforming data from .xml to .json format. This was done for APIs for API implementation to be easier.
+The results were stored inthe  dsa/ directory with python script as well as the XML to be transformed. To do so, just run the python3 script named xml_parsing_script.py.
+
+## API implementation
+
+We have created an API with 5 endpoints: 
+- GET
+- PUT
+- DELETE
+- POST
+- Unauthorized
+
+All the endpoints involved are in the report file.
+
+## Data Structures and Algorithm
+
+This is also in the dsa/ directory, which contains to way which is: linear search and dictionary lookup. Their difference is stated in the report document
+the Python script in text.py 
